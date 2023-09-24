@@ -5,20 +5,33 @@ import re
 
 # 命令行参数
 parser = argparse.ArgumentParser(description='Generate arithmetic expressions.')
-parser.add_argument('-n', type=int, help='number of expressions to generate')  # 表达式数量
-parser.add_argument('-r', type=int, help='range of values for numbers in expressions')  # 最大数值
-parser.add_argument('-e', type=str, help='path to exercises file')  # 测试文件
-parser.add_argument('-a', type=str, help='path to answers file')  # 答案文件
+parser.add_argument('-n', type=int, help='number of expressions to generate,如-n 10,生成10个运算式子')  # 表达式数量
+parser.add_argument('-r', type=int, help='range of values for numbers in expressions,如-r 10，生成运算数的最大值为10')  # 最大数值
+parser.add_argument('-e', type=str, help='path to exercises file,-e xxx.txt,输入测试文件')  # 测试文件
+parser.add_argument('-a', type=str, help='path to answers file,-a xxx.txt,测试题目的答案')  # 答案文件
+parser.add_argument('-y', type=str, help='输入的测试文件格式要求:与项目生成的文件格式一致，如四则运算题目.1\t...\n'
+                                         '以及输入答案文件格式也要统一如:第1题的答案:\t...\n')  # 答案文件
 args = parser.parse_args()
 
 subject_num = args.n if args.n else 100
 scope = args.r if args.r else 10
+cer = args.y if args.y else 'n'
+print("是否需要帮助信息，以及了解相关命令参数的使用?(y|n)")
+if cer == 'y' or cer == 'Y':
+    parser.print_help()
+
+a = input()
+if a == 'Y' or a == 'y':
+    parser.print_help()
+
+input("按回车键继续...")
+
 file_handle1 = open('Exercises.txt', 'w+')
 file_handle2 = open('Answers.txt', 'w+')
 file_handle1.close()
 file_handle2.close()
-exercises_file = args.e if args.e else 'test.txt'
-answers_file = args.a if args.a else 'ans.txt'
+exercises_file = args.e if args.e else 'Exercises.txt'
+answers_file = args.a if args.a else 'Answers.txt'
 
 correct_count = 0
 wrong_count = 0

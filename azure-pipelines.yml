@@ -1,0 +1,22 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+variables: # pipeline-level 
+  branch: 'azure_branch'
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: |
+    git remote add github https://muxingtong:hja1440493462@https://github.com/muxingtong/MyCalculator
+    git checkout main
+    git push -u github main
+  
+  
+  displayName: 'Command Line Script'
